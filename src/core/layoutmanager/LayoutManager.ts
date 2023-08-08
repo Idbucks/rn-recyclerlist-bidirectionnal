@@ -18,22 +18,9 @@ export abstract class LayoutManager {
         }
     }
 
-    //You can ovveride this incase you want to override style in some cases e.g, say you want to enfore width but not height
+    //You can override this in case you want to override style in some cases e.g, say you want to enforce width but not height
     public getStyleOverridesForIndex(index: number): object | undefined {
         return undefined;
-    }
-
-    //Removes item at the specified index
-    public removeLayout(index: number): void {
-        const layouts = this.getLayouts();
-        if (index < layouts.length) {
-            layouts.splice(index, 1);
-        }
-        if (index === 0 && layouts.length > 0) {
-            const firstLayout = layouts[0];
-            firstLayout.x = 0;
-            firstLayout.y = 0;
-        }
     }
 
     //Return the dimension of entire content inside the list
@@ -214,7 +201,7 @@ export class WrapGridLayoutManager extends LayoutManager {
     }
 
     private _checkBounds(itemX: number, itemY: number, itemDim: Dimension, isHorizontal: boolean): boolean {
-        return isHorizontal ? (itemY + itemDim.height <= this._window.height + 0.9) : (itemX + itemDim.width <= this._window.width + 0.9);
+        return isHorizontal ? (itemY + itemDim.height <= this._window.height) : (itemX + itemDim.width <= this._window.width);
     }
 }
 

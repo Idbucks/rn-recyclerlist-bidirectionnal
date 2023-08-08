@@ -14,11 +14,32 @@ import {
 } from 'rn-recyclerlist-bidirectionnal';
 
 const renderImage = (type: any, data: any) => {
+  console.log('type', type, data);
   return (
-    <View style={{ flex: 1, backgroundColor: 'grey' }} key={data?._id}>
-      <Text>Published by {data?.text}</Text>
-      <View style={{ backgroundColor: 'red', height: 450, width: '100%' }} />
-      <View>
+    <View key={data?._id} style={{ width: '100%' }}>
+      <View
+        style={{
+          padding: 10,
+        }}
+      >
+        <Text>Published by {data?.text}</Text>
+      </View>
+      <View
+        style={{
+          backgroundColor:
+            '#' + Math.floor(Math.random() * 16777215).toString(16),
+          height: 450,
+        }}
+      />
+      <View
+        style={{
+          padding: 10,
+          marginBottom: 15,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          flex: 1,
+        }}
+      >
         <TouchableOpacity>
           <Text>Comment</Text>
         </TouchableOpacity>
@@ -45,9 +66,21 @@ export default function App() {
       _id: 3,
       text: 'Claire',
     },
+    {
+      _id: 4,
+      text: 'Jordan',
+    },
+    {
+      _id: 5,
+      text: 'Marie',
+    },
+    {
+      _id: 6,
+      text: 'Nicolas',
+    },
   ]);
 
-  const [layoutProvider] = React.useState(
+  const [layoutProvider] = useState(
     new LayoutProvider(
       () => 1,
       (_type, dim) => {
@@ -64,34 +97,63 @@ export default function App() {
     }).cloneWithRows(pictures)
   );
 
-  useEffect(() => {
-    setDataProvider((p) => p.cloneWithRows(pictures));
-  }, [pictures]);
+  // useEffect(() => {
+  //   if (pictures.length > 3) {
+  //     setDataProvider((p) => p.appendRows(pictures));
+  //   }
+  // }, [pictures]);
 
-  const onStartReached = async () => {};
+  const onStartReached = async () => {
+    setTimeout(() => {
+      console.log('--- 1. onStartReached');
+      setDataProvider((p) => {
+        return p.prependRows([
+          {
+            _id: -4,
+            text: 'Alexis',
+          },
+          {
+            _id: -3,
+            text: 'Maria',
+          },
+          {
+            _id: -2,
+            text: 'Cindy',
+          },
+          {
+            _id: -1,
+            text: 'Manon',
+          },
+          {
+            _id: 0,
+            text: 'Maena',
+          },
+        ]);
+      });
+    }, 1000);
+  };
   const onEndReached = async () => {};
 
   return (
     <View style={styles.container}>
-      <RecyclerListView
-        style={{
-          flex: 1,
-          backgroundColor: "blue"
-        }}
-        layoutProvider={layoutProvider}
-        dataProvider={dataProvider}
-        rowRenderer={(type, data) => renderImage(type, data)}
-        onStartReached={onStartReached}
-        onStartReachedThreshold={400}
-        onEndReached={onEndReached}
-        onEndReachedThreshold={400}
-        isHorizontal={false}
-        forceNonDeterministicRendering={true}
-        initialRenderIndex={1}
-        scrollViewProps={{
-          showsVerticalScrollIndicator: false,
-        }}
-      />
+      <View style={{ minHeight: 1, width: '100%' }}>
+        <RecyclerListView
+          layoutProvider={layoutProvider}
+          dataProvider={dataProvider}
+          rowRenderer={(type, data) => renderImage(type, data)}
+          // onStartReached={onStartReached}
+          // onStartReachedThreshold={400}
+          onEndReached={onEndReached}
+          onEndReachedThreshold={400}
+          isHorizontal={false}
+          forceNonDeterministicRendering={true}
+          initialRenderIndex={3}
+          renderAheadOffset={0}
+          scrollViewProps={{
+            showsVerticalScrollIndicator: false,
+          }}
+        />
+      </View>
     </View>
   );
 }
@@ -101,7 +163,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'red',
   },
   box: {
     width: 60,

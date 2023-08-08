@@ -1,161 +1,54 @@
 {
-  "name": "rn-recyclerlist-bidirectionnal",
-  "version": "0.1.0",
-  "description": "Recycler bidirectionnal",
-  "main": "lib/commonjs/index",
-  "module": "lib/module/index",
-  "types": "lib/typescript/index.d.ts",
-  "react-native": "src/index",
-  "source": "src/index",
-  "files": [
-    "src",
-    "lib",
-    "android",
-    "ios",
-    "cpp",
-    "*.podspec",
-    "!lib/typescript/example",
-    "!ios/build",
-    "!android/build",
-    "!android/gradle",
-    "!android/gradlew",
-    "!android/gradlew.bat",
-    "!android/local.properties",
-    "!**/__tests__",
-    "!**/__fixtures__",
-    "!**/__mocks__",
-    "!**/.*"
-  ],
+  "name": "recyclerlistview",
+  "version": "3.0.5",
+  "description": "The listview that you need and deserve. It was built for performance, uses cell recycling to achieve smooth scrolling.",
+  "main": "dist/reactnative/index.js",
+  "types": "dist/reactnative/index.d.ts",
   "scripts": {
-    "test": "jest",
-    "typecheck": "tsc --noEmit",
-    "lint": "eslint \"**/*.{js,ts,tsx}\"",
-    "prepack": "bob build",
-    "release": "release-it",
-    "example": "yarn --cwd example",
-    "bootstrap": "yarn example && yarn install"
+    "build": "sh scripts/build.sh",
+    "clean": "sh scripts/clean.sh",
+    "release": "sh scripts/publish-latest.sh",
+    "release-beta": "sh scripts/publish-beta.sh",
+    "release-local": "sh scripts/publish-local.sh"
   },
   "keywords": [
     "react-native",
-    "ios",
-    "android"
+    "recyclerview",
+    "listview",
+    "flatlist-alternative",
+    "flatlist",
+    "60fps",
+    "cross-platform",
+    "web",
+    "react-native-web",
+    "performance"
   ],
-  "repository": "https://github.com/Idbucks/rn-recyclerlist-bidirectionnal",
-  "author": "Idbucks <contact@idbucks.com> (https://github.com/Idbucks/rn-recyclerlist-bidirectionnal)",
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Flipkart/recyclerlistview"
+  },
+  "author": "naqvitalha <naqvitalha@gmail.com>",
+  "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/Idbucks/rn-recyclerlist-bidirectionnal/issues"
+    "url": "https://github.com/Flipkart/recyclerlistview/issues"
   },
-  "homepage": "https://github.com/Idbucks/rn-recyclerlist-bidirectionnal#readme",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "devDependencies": {
-    "@commitlint/config-conventional": "^17.0.2",
-    "@evilmartians/lefthook": "^1.2.2",
-    "@react-native-community/eslint-config": "^3.0.2",
-    "@release-it/conventional-changelog": "^5.0.0",
-    "@types/jest": "^28.1.2",
-    "@types/lodash.debounce": "^4.0.7",
-    "@types/react": "~17.0.21",
-    "@types/react-native": "0.70.0",
-    "commitlint": "^17.0.2",
-    "del-cli": "^5.0.0",
-    "eslint": "^8.4.1",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "jest": "^28.1.1",
-    "pod-install": "^0.1.0",
-    "prettier": "^2.0.5",
-    "react": "18.2.0",
-    "react-native": "0.72.3",
-    "react-native-builder-bob": "^0.20.0",
-    "release-it": "^15.0.0",
-    "ts-object-utils": "^0.0.5",
-    "typescript": "^5.0.2"
-  },
-  "resolutions": {
-    "@types/react": "17.0.21"
+  "homepage": "https://github.com/Flipkart/recyclerlistview",
+  "dependencies": {
+    "lodash.debounce": "4.0.8",
+    "prop-types": "15.5.8",
+    "ts-object-utils": "0.0.5"
   },
   "peerDependencies": {
-    "react": "*",
-    "react-native": "*"
+    "react": ">= 15.2.1",
+    "react-native": ">= 0.30.0"
   },
-  "engines": {
-    "node": ">= 16.0.0"
-  },
-  "packageManager": "^yarn@1.22.15",
-  "jest": {
-    "preset": "react-native",
-    "modulePathIgnorePatterns": [
-      "<rootDir>/example/node_modules",
-      "<rootDir>/lib/"
-    ]
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
-  "release-it": {
-    "git": {
-      "commitMessage": "chore: release ${version}",
-      "tagName": "v${version}"
-    },
-    "npm": {
-      "publish": true
-    },
-    "github": {
-      "release": true
-    },
-    "plugins": {
-      "@release-it/conventional-changelog": {
-        "preset": "angular"
-      }
-    }
-  },
-  "eslintConfig": {
-    "root": true,
-    "extends": [
-      "@react-native-community",
-      "prettier"
-    ],
-    "rules": {
-      "prettier/prettier": [
-        "error",
-        {
-          "quoteProps": "consistent",
-          "singleQuote": true,
-          "tabWidth": 2,
-          "trailingComma": "es5",
-          "useTabs": false
-        }
-      ]
-    }
-  },
-  "eslintIgnore": [
-    "node_modules/",
-    "lib/"
-  ],
-  "prettier": {
-    "quoteProps": "consistent",
-    "singleQuote": true,
-    "tabWidth": 2,
-    "trailingComma": "es5",
-    "useTabs": false
-  },
-  "react-native-builder-bob": {
-    "source": "src",
-    "output": "lib",
-    "targets": [
-      "commonjs",
-      "module",
-      [
-        "typescript",
-        {
-          "project": "tsconfig.build.json"
-        }
-      ]
-    ]
+  "devDependencies": {
+    "@types/lodash.debounce": "4.0.3",
+    "@types/prop-types": "15.5.2",
+    "@types/react-native": "0.49.5",
+    "@types/react": "16.4.7",
+    "file-directives": "1.4.6",
+    "tslint": "5.11.0",
+    "typescript": "3.3.1"
   }
 }

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import * as React from "react";
 import BaseScrollView, { ScrollEvent, ScrollViewDefaultProps } from "../../../core/scrollcomponent/BaseScrollView";
 import debounce = require("lodash.debounce");

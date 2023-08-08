@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * Created by ananya.chandra on 14/09/18.
  */
@@ -102,7 +104,7 @@ export default class StickyContainer<P extends StickyContainerProps> extends Com
                         overrideRowRenderer={this.props.overrideRowRenderer}
                         renderContainer={this.props.renderStickyContainer}
                         getWindowCorrection={this._getCurrentWindowCorrection}
-                        alwaysStickBottom = {this.props.alwaysStickyFooter} />
+                        alwaysStickBottom={this.props.alwaysStickyFooter} />
                 ) : null}
             </View>
         );

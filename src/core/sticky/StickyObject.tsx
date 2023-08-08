@@ -33,7 +33,7 @@ export default abstract class StickyObject<P extends StickyObjectProps> extends 
 
     protected stickyType: StickyType = StickyType.HEADER;
     protected stickyTypeMultiplier: number = 1;
-    protected stickyVisiblity: boolean = false;
+    protected stickyVisibility: boolean = false;
     protected containerPosition: StyleProp<ViewStyle>;
     protected currentIndex: number = 0;
     protected currentStickyIndex: number = 0;
@@ -66,7 +66,7 @@ export default abstract class StickyObject<P extends StickyObjectProps> extends 
         startCorrection: 0, endCorrection: 0, windowShift: 0,
     };
 
-    constructor(props: P, context?: any) {
+    protected constructor(props: P, context?: any) {
         super(props, context);
     }
 
@@ -75,7 +75,7 @@ export default abstract class StickyObject<P extends StickyObjectProps> extends 
         this.calculateVisibleStickyIndex(newProps.stickyIndices, this._smallestVisibleIndex, this._largestVisibleIndex,
             this._offsetY, this._windowBound);
         this._computeLayouts(newProps.stickyIndices);
-        this.stickyViewVisible(this.stickyVisiblity, false);
+        this.stickyViewVisible(this.stickyVisibility, false);
     }
 
     public renderCompat(): JSX.Element | null {
@@ -95,9 +95,8 @@ export default abstract class StickyObject<P extends StickyObjectProps> extends 
         }
 
         const content = (
-            //@ts-ignore
             <Animated.View style={containerStyle}>
-                {this.stickyVisiblity ? this._renderSticky() : null}
+                {this.stickyVisibility ? this._renderSticky() : null}
             </Animated.View>
         );
 
@@ -120,7 +119,7 @@ export default abstract class StickyObject<P extends StickyObjectProps> extends 
         this.calculateVisibleStickyIndex(this.props.stickyIndices, this._smallestVisibleIndex, this._largestVisibleIndex,
             this._offsetY, this._windowBound);
         this._computeLayouts();
-        this.stickyViewVisible(this.stickyVisiblity);
+        this.stickyViewVisible(this.stickyVisibility);
     }
 
     public onScroll(offsetY: number): void {
@@ -175,7 +174,7 @@ export default abstract class StickyObject<P extends StickyObjectProps> extends 
     protected abstract getScrollY(offsetY: number, scrollableHeight?: number): number | undefined;
 
     protected stickyViewVisible(_visible: boolean, shouldTriggerRender: boolean = true): void {
-        this.stickyVisiblity = _visible;
+        this.stickyVisibility = _visible;
         if (shouldTriggerRender) {
             this.setState({});
         }
@@ -241,19 +240,16 @@ export default abstract class StickyObject<P extends StickyObjectProps> extends 
     }
 
     private _renderSticky(): JSX.Element | JSX.Element[] | null {
-        if (this.currentStickyIndex !== undefined) {
-            const _stickyData: any = this.props.getDataForIndex(this.currentStickyIndex);
-            const _stickyLayoutType: string | number = this.props.getLayoutTypeForIndex(this.currentStickyIndex);
-            const _extendedState: object | undefined = this.props.getExtendedState();
-            const _rowRenderer: ((type: string | number, data: any, index: number, extendedState?: object)
-                => JSX.Element | JSX.Element[] | null) = this.props.getRowRenderer();
-            if (this.props.overrideRowRenderer) {
-                return this.props.overrideRowRenderer(_stickyLayoutType, _stickyData, this.currentStickyIndex, _extendedState);
-            } else {
-                return _rowRenderer(_stickyLayoutType, _stickyData, this.currentStickyIndex, _extendedState);
-            }
+        const _stickyData: any = this.props.getDataForIndex(this.currentStickyIndex);
+        const _stickyLayoutType: string | number = this.props.getLayoutTypeForIndex(this.currentStickyIndex);
+        const _extendedState: object | undefined = this.props.getExtendedState();
+        const _rowRenderer: ((type: string | number, data: any, index: number, extendedState?: object)
+            => JSX.Element | JSX.Element[] | null) = this.props.getRowRenderer();
+        if (this.props.overrideRowRenderer) {
+            return this.props.overrideRowRenderer(_stickyLayoutType, _stickyData, this.currentStickyIndex, _extendedState);
+        } else {
+            return _rowRenderer(_stickyLayoutType, _stickyData, this.currentStickyIndex, _extendedState);
         }
-        return null;
     }
 
     private _getAdjustedOffsetY(offsetY: number): number {

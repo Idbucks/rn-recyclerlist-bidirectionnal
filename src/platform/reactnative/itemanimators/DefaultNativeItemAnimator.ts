@@ -1,12 +1,11 @@
 import { LayoutAnimation, Platform, UIManager } from "react-native";
 import { BaseItemAnimator } from "../../../core/ItemAnimator";
 
-export class DefaultNativeItemAnimator extends BaseItemAnimator {
+export class DefaultNativeItemAnimator implements BaseItemAnimator {
     public shouldAnimateOnce: boolean = true;
     private _hasAnimatedOnce: boolean = false;
     private _isTimerOn: boolean = false;
     constructor() {
-        super();
         if (Platform.OS === "android" && UIManager.setLayoutAnimationEnabledExperimental) {
             UIManager.setLayoutAnimationEnabledExperimental(true);
         }
