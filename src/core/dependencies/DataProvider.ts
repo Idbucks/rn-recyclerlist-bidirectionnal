@@ -101,9 +101,9 @@ export abstract class BaseDataProvider {
             dp._lastIndexToProcess = lastIndexToProcess;
         }
 
-        if (dp._firstIndexToProcess !== this._data.length || dp._lastIndexToProcess !== 0) {
+        // if (dp._firstIndexToProcess !== this._data.length || dp._lastIndexToProcess !== 0) {
             dp._requiresDataChangeHandling = true;
-        }
+        // }
         dp._data = newData;
         dp._size = newSize;
         return dp;
