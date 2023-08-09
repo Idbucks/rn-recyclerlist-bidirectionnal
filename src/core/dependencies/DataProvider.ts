@@ -106,7 +106,7 @@ export abstract class BaseDataProvider {
             dp._requiresDataChangeHandling = true;
         // }
         console.log("test recyclerview", dp._firstIndexToProcess, dp._lastIndexToProcess)
-        dp._data = newData;
+        dp._data = [...newData];
         dp._size = newSize;
         return dp;
     }

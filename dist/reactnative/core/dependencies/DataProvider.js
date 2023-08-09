@@ -14,6 +14,15 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BaseDataProvider = void 0;
 var ts_object_utils_1 = require("ts-object-utils");
@@ -112,7 +121,7 @@ var BaseDataProvider = /** @class */ (function () {
         dp._requiresDataChangeHandling = true;
         // }
         console.log("test recyclerview", dp._firstIndexToProcess, dp._lastIndexToProcess);
-        dp._data = newData;
+        dp._data = __spreadArray([], newData, true);
         dp._size = newSize;
         return dp;
     };
