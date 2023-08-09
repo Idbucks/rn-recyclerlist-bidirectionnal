@@ -736,13 +736,11 @@ export default class RecyclerListView<P extends RecyclerListViewProps, S extends
                 const isWithinEndThreshold = windowBound - lastOffset <= Default.value<number>(this.props.onEndReachedThreshold, 0);
                 const isWithinStartThreshold = lastOffset <= Default.value<number>(this.props.onStartReachedThreshold, 0);
                 if (this.props.onEndReached && isWithinEndThreshold && !this._endEndReachedCalled && Date.now() - this.timing_end_reached > 2000) {
-                    console.log("end reach called")
                     this._onEndReachedCalled = true;
                     this.props.onEndReached().then(() => {
                         this.timing_end_reached = Date.now()
                     });
                 } else if (this.props.onStartReached && isWithinStartThreshold && !this._endStartReachedCalled && Date.now() - this.timing_start_reached > 2000) {
-                    console.log("start reach called")
                     this._onStartReachedCalled = true;
                     this.props.onStartReached().then(() => {
                         this.timing_start_reached = Date.now()

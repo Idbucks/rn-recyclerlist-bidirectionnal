@@ -191,14 +191,12 @@ var RecyclerListView = /** @class */ (function (_super) {
                     var isWithinEndThreshold = windowBound - lastOffset <= ts_object_utils_1.Default.value(_this.props.onEndReachedThreshold, 0);
                     var isWithinStartThreshold = lastOffset <= ts_object_utils_1.Default.value(_this.props.onStartReachedThreshold, 0);
                     if (_this.props.onEndReached && isWithinEndThreshold && !_this._endEndReachedCalled && Date.now() - _this.timing_end_reached > 2000) {
-                        console.log("end reach called");
                         _this._onEndReachedCalled = true;
                         _this.props.onEndReached().then(function () {
                             _this.timing_end_reached = Date.now();
                         });
                     }
                     else if (_this.props.onStartReached && isWithinStartThreshold && !_this._endStartReachedCalled && Date.now() - _this.timing_start_reached > 2000) {
-                        console.log("start reach called");
                         _this._onStartReachedCalled = true;
                         _this.props.onStartReached().then(function () {
                             _this.timing_start_reached = Date.now();
