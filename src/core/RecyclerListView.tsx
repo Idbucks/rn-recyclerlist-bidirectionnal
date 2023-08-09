@@ -726,7 +726,6 @@ export default class RecyclerListView<P extends RecyclerListViewProps, S extends
     }
 
     private _processOnEdgeReached = (): void => {
-        console.log("process appelé")
         if (!this._getOnEdgeReachedCalled() && this._virtualRenderer && (this.props.onEndReached || this.props.onStartReached)) {
             const virtualLayout = this._virtualRenderer.getLayoutDimension();
             const viewabilityTracker = this._virtualRenderer.getViewabilityTracker();
