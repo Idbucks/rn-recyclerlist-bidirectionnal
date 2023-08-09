@@ -161,9 +161,8 @@ export default class RecyclerListView<P extends RecyclerListViewProps, S extends
     private _cachedLayouts?: Layout[];
     private _scrollComponent: BaseScrollComponent | null = null;
     private _windowCorrection: WindowCorrection;
-    private cpt = 0;
-    private timing_start_reached = Date.now()
-    private timing_end_reached = Date.now()
+    private timing_start_reached = Date.now() - 1000
+    private timing_end_reached = Date.now() - 1000
 
     //If the native content container is used, then positions of the list items are changed on the native side. The animated library used
     //by the default item animator also changes the same positions which could lead to inconsistency. Hence, the base item animator which
@@ -717,17 +716,13 @@ export default class RecyclerListView<P extends RecyclerListViewProps, S extends
     private _onScroll = (offsetX: number, offsetY: number, rawEvent: ScrollEvent): void => {
         // correction to be positive to shift offset upwards; negative to push offset downwards.
         // extracting the correction value from logical offset and updating offset of virtual renderer.
-        this.cpt++
-
         this._virtualRenderer.updateOffset(offsetX, offsetY, true, this._getWindowCorrection(offsetX, offsetY, this.props));
 
         if (this.props.onScroll) {
             this.props.onScroll(rawEvent, offsetX, offsetY);
         }
-        this.cpt = this.cpt % 30
-        if (this.cpt == 0) {
-            this._processOnEdgeReached();
-        }
+
+        this._processOnEdgeReached();
     }
 
     private _processOnEdgeReached = (): void => {
