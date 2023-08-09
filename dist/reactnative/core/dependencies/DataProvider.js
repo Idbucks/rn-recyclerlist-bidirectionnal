@@ -63,6 +63,7 @@ var BaseDataProvider = /** @class */ (function () {
     //If you already know the first row where rowHasChanged will be false pass it upfront to avoid loop
     BaseDataProvider.prototype.cloneWithRows = function (newData, firstModifiedIndex, lastModifiedIndex) {
         if (firstModifiedIndex === void 0) { firstModifiedIndex = 0; }
+        console.log("clonewithrows start");
         var dp = this.newInstance(this.rowHasChanged, this.getStableId);
         var newSize = newData.length;
         var iterCount = Math.min(this._size, newSize);
@@ -107,9 +108,10 @@ var BaseDataProvider = /** @class */ (function () {
             dp._firstIndexToProcess = firstIndexToProcess;
             dp._lastIndexToProcess = lastIndexToProcess;
         }
-        if (dp._firstIndexToProcess !== this._data.length || dp._lastIndexToProcess !== 0) {
-            dp._requiresDataChangeHandling = true;
-        }
+        // if (dp._firstIndexToProcess !== this._data.length || dp._lastIndexToProcess !== 0) {
+        dp._requiresDataChangeHandling = true;
+        // }
+        console.log("test recyclerview", dp._firstIndexToProcess, dp._lastIndexToProcess);
         dp._data = newData;
         dp._size = newSize;
         return dp;

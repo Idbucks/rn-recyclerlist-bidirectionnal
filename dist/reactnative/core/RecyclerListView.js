@@ -91,9 +91,8 @@ var RecyclerListView = /** @class */ (function (_super) {
         _this._tempDim = { height: 0, width: 0 };
         _this._initialOffset = 0;
         _this._scrollComponent = null;
-        _this.cpt = 0;
-        _this.timing_start_reached = Date.now();
-        _this.timing_end_reached = Date.now();
+        _this.timing_start_reached = Date.now() - 1000;
+        _this.timing_end_reached = Date.now() - 1000;
         //If the native content container is used, then positions of the list items are changed on the native side. The animated library used
         //by the default item animator also changes the same positions which could lead to inconsistency. Hence, the base item animator which
         //does not perform any such animations will be used.
@@ -176,18 +175,13 @@ var RecyclerListView = /** @class */ (function (_super) {
         _this._onScroll = function (offsetX, offsetY, rawEvent) {
             // correction to be positive to shift offset upwards; negative to push offset downwards.
             // extracting the correction value from logical offset and updating offset of virtual renderer.
-            _this.cpt++;
             _this._virtualRenderer.updateOffset(offsetX, offsetY, true, _this._getWindowCorrection(offsetX, offsetY, _this.props));
             if (_this.props.onScroll) {
                 _this.props.onScroll(rawEvent, offsetX, offsetY);
             }
-            _this.cpt = _this.cpt % 30;
-            if (_this.cpt == 0) {
-                _this._processOnEdgeReached();
-            }
+            _this._processOnEdgeReached();
         };
         _this._processOnEdgeReached = function () {
-            console.log("process appelé");
             if (!_this._getOnEdgeReachedCalled() && _this._virtualRenderer && (_this.props.onEndReached || _this.props.onStartReached)) {
                 var virtualLayout = _this._virtualRenderer.getLayoutDimension();
                 var viewabilityTracker = _this._virtualRenderer.getViewabilityTracker();

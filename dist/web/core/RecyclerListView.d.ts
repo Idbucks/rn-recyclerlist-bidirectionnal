@@ -102,7 +102,6 @@ export default class RecyclerListView<P extends RecyclerListViewProps, S extends
     private _cachedLayouts?;
     private _scrollComponent;
     private _windowCorrection;
-    private cpt;
     private timing_start_reached;
     private timing_end_reached;
     private _defaultItemAnimator;
